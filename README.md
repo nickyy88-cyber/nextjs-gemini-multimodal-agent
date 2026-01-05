@@ -70,12 +70,12 @@ Want to run this locally? Follow these steps:
 
 ## 👨‍💻 Author
 
-**[您的名字]**
+**Nicholas Lee**
 *   **Role:** Next.js 16 & AI Architecture Specialist
 *   **Focus:** Building high-performance AI SaaS & MVPs.
 *   **Available for hire:** Yes
 
-[**Hire me on Upwork**](您的Upwork个人主页链接) | [**View Portfolio**](您的PageAlchemist链接)
+[**Hire me on Upwork**](https://www.upwork.com/freelancers/nicholasyiloongl?mp_source=share)
 
 ---
 
