@@ -86,7 +86,8 @@ export default function ChatInterface() {
 
     const chatId = currentChatId || Date.now().toString();
     const firstUserMessage = messages.find((m) => m.role === "user");
-    const title = firstUserMessage?.content.slice(0, 40) + (firstUserMessage?.content.length > 40 ? "..." : "") || "New Chat";
+    const content = firstUserMessage?.content || "";
+    const title = content.slice(0, 40) + (content.length > 40 ? "..." : "") || "New Chat";
 
     const updatedChat: ChatHistory = {
       id: chatId,
