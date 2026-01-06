@@ -372,6 +372,7 @@ export default function ChatInterface() {
       <button
         onClick={() => setIsMobileMenuOpen(true)}
         className="md:hidden fixed top-4 left-4 z-30 p-2 bg-white rounded-lg shadow-md border border-gray-200 hover:bg-gray-50 transition-colors"
+        aria-label="Open sidebar"
       >
         <Menu className="w-5 h-5 text-gray-600" />
       </button>
@@ -499,7 +500,7 @@ export default function ChatInterface() {
                             </ReactMarkdown>
                           </div>
                         ) : (
-                          <span className="text-gray-400 italic">Thinking...</span>
+                          <span className="text-gray-500 italic">Thinking...</span>
                         )
                       ) : (
                         <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
@@ -519,7 +520,7 @@ export default function ChatInterface() {
                   </div>
                   <div className="bg-gray-100 rounded-2xl px-4 py-3 max-w-[80%]">
                     <p className="text-sm text-gray-900">
-                      {streamingContent || <Loader2 className="w-5 h-5 animate-spin text-gray-400" />}
+                      {streamingContent || <Loader2 className="w-5 h-5 animate-spin text-gray-500" />}
                     </p>
                   </div>
                 </div>
@@ -546,8 +547,9 @@ export default function ChatInterface() {
                 </span>
                 <button
                   onClick={() => removeFile(file.id)}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  className="text-gray-500 hover:text-gray-600 transition-colors"
                   disabled={isProcessingFile}
+                  aria-label={`Remove ${file.name}`}
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -569,8 +571,9 @@ export default function ChatInterface() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-3 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all"
+              className="p-3 text-gray-500 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all"
               disabled={isLoading || isProcessingFile}
+              aria-label="Attach file"
             >
               <Paperclip className="w-5 h-5" />
             </button>
@@ -581,7 +584,7 @@ export default function ChatInterface() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask a question about your document..."
-              className="flex-1 bg-transparent border-0 outline-none text-base md:text-sm py-3 px-2 text-gray-900 placeholder:text-gray-400"
+              className="flex-1 bg-transparent border-0 outline-none text-base md:text-sm py-3 px-2 text-gray-900 placeholder:text-gray-500"
               disabled={isLoading || isProcessingFile}
             />
 
@@ -590,6 +593,7 @@ export default function ChatInterface() {
               size="icon"
               disabled={isLoading || isProcessingFile || (!input.trim() && attachedFiles.length === 0)}
               className="h-11 w-11 rounded-full bg-gray-900 hover:bg-gray-800 transition-all"
+              aria-label="Send message"
             >
               {isLoading || isProcessingFile ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -610,7 +614,7 @@ export default function ChatInterface() {
           />
         </form>
 
-        <p className="text-xs text-gray-400 mt-3 text-center">
+        <p className="text-xs text-gray-500 mt-3 text-center">
           Press Enter to send, Shift + Enter for new line · Drag & drop files anywhere
         </p>
       </div>
