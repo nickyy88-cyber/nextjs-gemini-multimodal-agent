@@ -10,7 +10,7 @@ import { Progress } from "./ui/progress";
 import ReactMarkdown from "react-markdown";
 import Sidebar from "./sidebar";
 import { toast } from "sonner";
-import { Paperclip, Send, Loader2, FileText, Image as ImageIcon, X, BarChart, Video, Languages, Menu } from "lucide-react";
+import { Paperclip, Send, Loader2, FileText, Image as ImageIcon, X, BarChart3, Video, Languages, Menu, ArrowRight } from "lucide-react";
 import { fileToBase64 } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
@@ -142,6 +142,8 @@ export default function ChatInterface() {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(CURRENT_CHAT_KEY);
       setIsMobileMenuOpen(false);
+      // Show success toast
+      toast.success("History cleared successfully");
       // Dispatch event for sidebar to update
       window.dispatchEvent(new CustomEvent("chat-history-updated"));
     }
@@ -350,20 +352,20 @@ export default function ChatInterface() {
 
       {/* Main Chat Interface */}
       <div
-        className="flex flex-col h-screen bg-white relative flex-1 overflow-hidden"
+        className="flex flex-col h-screen bg-paper relative flex-1 overflow-hidden"
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
         {/* Global Drag Overlay */}
         {isDragging && (
-        <div className="fixed inset-0 bg-blue-500/10 backdrop-blur-sm z-50 flex items-center justify-center border-4 border-blue-500 border-dashed m-4 rounded-3xl">
+        <div className="fixed inset-0 bg-terra/10 backdrop-blur-sm z-50 flex items-center justify-center border-4 border-terra border-dashed m-4 rounded-3xl">
           <div className="text-center">
-            <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <div className="w-20 h-20 bg-terra rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <Paperclip className="w-10 h-10 text-white" />
             </div>
-            <p className="text-2xl font-semibold text-blue-600 mb-2">Drop files here</p>
-            <p className="text-sm text-gray-500">Supports images, PDFs, and videos</p>
+            <p className="text-2xl font-serif font-semibold text-terra mb-2">Drop files here</p>
+            <p className="text-sm text-ink/60">Supports images, PDFs, and videos</p>
           </div>
         </div>
       )}
@@ -371,10 +373,10 @@ export default function ChatInterface() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsMobileMenuOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-30 p-2 bg-white rounded-lg shadow-md border border-gray-200 hover:bg-gray-50 transition-colors"
+        className="md:hidden fixed top-4 left-4 z-30 p-2 bg-card-cream rounded-lg shadow-sm border border-text-ink/10 hover:bg-terra/10 transition-colors"
         aria-label="Open sidebar"
       >
-        <Menu className="w-5 h-5 text-gray-600" />
+        <Menu className="w-5 h-5 text-ink" />
       </button>
 
       {/* Mobile Sidebar Sheet */}
@@ -394,63 +396,77 @@ export default function ChatInterface() {
         <div className="space-y-6">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center min-h-[calc(100vh-280px)] px-4 py-12">
-              <div className="mb-10 text-center">
-                <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                  Start a new analysis
+              {/* Hero Title */}
+              <div className="mb-12 text-center">
+                <h1 className="text-4xl font-serif font-bold mb-3" style={{ color: "#2D2D2D" }}>
+                  Your Research Companion
                 </h1>
-                <p className="text-gray-500">
-                  Upload a document or ask a question to get started
+                <p className="font-light" style={{ color: "rgba(45,45,45,0.7)" }}>
+                  Ready to uncover new insights from your documents?
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
-                <Card className="group cursor-pointer border-gray-200 hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-200">
-                  <CardContent className="flex items-center gap-4 p-5">
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-200 transition-colors">
-                      <FileText className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900">Summarize this contract</p>
-                      <p className="text-sm text-gray-500">Extract key points from legal documents</p>
-                    </div>
-                  </CardContent>
-                </Card>
+              {/* Suggestion Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-2xl">
+                {/* Card 1 */}
+                <button
+                  onClick={() => setInput("Summarize this contract")}
+                  className="flex flex-col h-40 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group text-left"
+                >
+                  <div className="h-1/2 flex items-center justify-between px-5 py-4" style={{ backgroundColor: "#D99B83" }}>
+                    <FileText className="w-8 h-8 text-white stroke-[1.5px]" />
+                    <ArrowRight className="w-5 h-5 text-white opacity-60 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <div className="h-1/2 flex flex-col justify-center px-5 py-3" style={{ backgroundColor: "#FDFBF7" }}>
+                    <h3 className="font-serif text-base font-semibold" style={{ color: "#2D2D2D" }}>Summarize this contract</h3>
+                    <p className="text-sm mt-0.5" style={{ color: "#6B6B6B" }}>Extract key points from legal documents</p>
+                  </div>
+                </button>
 
-                <Card className="group cursor-pointer border-gray-200 hover:border-violet-200 hover:bg-violet-50/30 transition-all duration-200">
-                  <CardContent className="flex items-center gap-4 p-5">
-                    <div className="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-violet-200 transition-colors">
-                      <BarChart className="w-6 h-6 text-violet-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900">Analyze this financial chart</p>
-                      <p className="text-sm text-gray-500">Get insights from data visualizations</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Card 2 */}
+                <button
+                  onClick={() => setInput("Analyze this financial chart")}
+                  className="flex flex-col h-40 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group text-left"
+                >
+                  <div className="h-1/2 flex items-center justify-between px-5 py-4" style={{ backgroundColor: "#D99B83" }}>
+                    <BarChart3 className="w-8 h-8 text-white stroke-[1.5px]" />
+                    <ArrowRight className="w-5 h-5 text-white opacity-60 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <div className="h-1/2 flex flex-col justify-center px-5 py-3" style={{ backgroundColor: "#FDFBF7" }}>
+                    <h3 className="font-serif text-base font-semibold" style={{ color: "#2D2D2D" }}>Analyze this financial chart</h3>
+                    <p className="text-sm mt-0.5" style={{ color: "#6B6B6B" }}>Get insights from data visualizations</p>
+                  </div>
+                </button>
 
-                <Card className="group cursor-pointer border-gray-200 hover:border-emerald-200 hover:bg-emerald-50/30 transition-all duration-200">
-                  <CardContent className="flex items-center gap-4 p-5">
-                    <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 transition-colors">
-                      <Video className="w-6 h-6 text-emerald-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900">Extract insights from video</p>
-                      <p className="text-sm text-gray-500">Analyze video frames and content</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Card 3 */}
+                <button
+                  onClick={() => setInput("Extract insights from video")}
+                  className="flex flex-col h-40 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group text-left"
+                >
+                  <div className="h-1/2 flex items-center justify-between px-5 py-4" style={{ backgroundColor: "#D99B83" }}>
+                    <Video className="w-8 h-8 text-white stroke-[1.5px]" />
+                    <ArrowRight className="w-5 h-5 text-white opacity-60 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <div className="h-1/2 flex flex-col justify-center px-5 py-3" style={{ backgroundColor: "#FDFBF7" }}>
+                    <h3 className="font-serif text-base font-semibold" style={{ color: "#2D2D2D" }}>Extract insights from video</h3>
+                    <p className="text-sm mt-0.5" style={{ color: "#6B6B6B" }}>Analyze video frames and content</p>
+                  </div>
+                </button>
 
-                <Card className="group cursor-pointer border-gray-200 hover:border-amber-200 hover:bg-amber-50/30 transition-all duration-200">
-                  <CardContent className="flex items-center gap-4 p-5">
-                    <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-amber-200 transition-colors">
-                      <Languages className="w-6 h-6 text-amber-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900">Translate this document</p>
-                      <p className="text-sm text-gray-500">Convert content to any language</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Card 4 */}
+                <button
+                  onClick={() => setInput("Translate this document")}
+                  className="flex flex-col h-40 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group text-left"
+                >
+                  <div className="h-1/2 flex items-center justify-between px-5 py-4" style={{ backgroundColor: "#D99B83" }}>
+                    <Languages className="w-8 h-8 text-white stroke-[1.5px]" />
+                    <ArrowRight className="w-5 h-5 text-white opacity-60 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <div className="h-1/2 flex flex-col justify-center px-5 py-3" style={{ backgroundColor: "#FDFBF7" }}>
+                    <h3 className="font-serif text-base font-semibold" style={{ color: "#2D2D2D" }}>Translate this document</h3>
+                    <p className="text-sm mt-0.5" style={{ color: "#6B6B6B" }}>Convert content to any language</p>
+                  </div>
+                </button>
               </div>
             </div>
           ) : (
@@ -466,41 +482,46 @@ export default function ChatInterface() {
                     )}
                   >
                     {message.role === "assistant" && (
-                      <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <FileText className="w-5 h-5 text-white" />
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#FDFBF7", border: "1px solid rgba(217,155,131,0.3)" }}>
+                        <FileText className="w-5 h-5" style={{ color: "#D99B83" }} />
                       </div>
                     )}
                     <div
                       className={cn(
-                        "rounded-2xl px-4 py-3 max-w-[80%]",
+                        "px-4 py-3 max-w-[80%]",
                         message.role === "user"
-                          ? "bg-gray-900 text-white"
-                          : "bg-gray-100 text-gray-900"
+                          ? "rounded-2xl rounded-tr-sm"
+                          : "rounded-2xl"
                       )}
+                      style={
+                        message.role === "user"
+                          ? { backgroundColor: "#D99B83", color: "white" }
+                          : { backgroundColor: "#FDFBF7", border: "1px solid rgba(217,155,131,0.3)", color: "#2D2D2D" }
+                      }
                     >
                       {message.role === "assistant" ? (
                         message.content ? (
                           <div className="prose prose-sm md:prose-base max-w-none break-words text-sm md:text-base">
                             <ReactMarkdown
                               components={{
-                                p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                                ul: ({ children }) => <ul className="mb-2 ml-4 list-disc">{children}</ul>,
-                                ol: ({ children }) => <ol className="mb-2 ml-4 list-decimal">{children}</ol>,
-                                li: ({ children }) => <li className="mb-1">{children}</li>,
-                                code: ({ children }) => <code className="bg-gray-200 px-1 py-0.5 rounded text-xs">{children}</code>,
-                                pre: ({ children }) => <pre className="bg-gray-800 text-green-400 p-3 rounded-lg overflow-x-auto text-xs md:text-sm my-2">{children}</pre>,
-                                h1: ({ children }) => <h1 className="text-lg font-bold mb-2">{children}</h1>,
-                                h2: ({ children }) => <h2 className="text-base font-bold mb-2">{children}</h2>,
-                                h3: ({ children }) => <h3 className="text-sm font-bold mb-1">{children}</h3>,
-                                a: ({ children, href }) => <a href={href} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">{children}</a>,
-                                blockquote: ({ children }) => <blockquote className="border-l-4 border-gray-300 pl-3 italic my-2">{children}</blockquote>,
+                                p: ({ children }) => <p className="mb-2 last:mb-0" style={{ color: "#2D2D2D" }}>{children}</p>,
+                                ul: ({ children }) => <ul className="mb-2 ml-4 list-disc" style={{ color: "#2D2D2D" }}>{children}</ul>,
+                                ol: ({ children }) => <ol className="mb-2 ml-4 list-decimal" style={{ color: "#2D2D2D" }}>{children}</ol>,
+                                li: ({ children }) => <li className="mb-1" style={{ color: "#2D2D2D" }}>{children}</li>,
+                                code: ({ children }) => <code className="px-1.5 py-0.5 rounded text-xs font-mono" style={{ backgroundColor: "rgba(217,155,131,0.2)", color: "#2D2D2D" }}>{children}</code>,
+                                pre: ({ children }) => <pre className="p-3 rounded-lg overflow-x-auto text-xs md:text-sm my-2" style={{ backgroundColor: "#2D2D2D", color: "#FDFBF7" }}>{children}</pre>,
+                                h1: ({ children }) => <h1 className="text-lg font-serif font-bold mb-2" style={{ color: "#2D2D2D" }}>{children}</h1>,
+                                h2: ({ children }) => <h2 className="text-base font-serif font-bold mb-2" style={{ color: "#2D2D2D" }}>{children}</h2>,
+                                h3: ({ children }) => <h3 className="text-sm font-serif font-bold mb-1" style={{ color: "#2D2D2D" }}>{children}</h3>,
+                                a: ({ children, href }) => <a href={href} className="underline font-medium" style={{ color: "#D99B83" }} target="_blank" rel="noopener noreferrer">{children}</a>,
+                                blockquote: ({ children }) => <blockquote className="border-l-4 pl-3 italic my-2" style={{ borderColor: "rgba(217,155,131,0.4)", color: "rgba(45,45,45,0.7)" }}>{children}</blockquote>,
                               }}
                             >
                               {message.content}
                             </ReactMarkdown>
                           </div>
                         ) : (
-                          <span className="text-gray-500 italic">Thinking...</span>
+                          <span className="italic" style={{ color: "#9CA3AF" }}>Thinking...</span>
                         )
                       ) : (
                         <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">
@@ -515,12 +536,12 @@ export default function ChatInterface() {
               {/* Streaming message */}
               {(streamingContent || isLoading) && (
                 <div className="flex gap-4 justify-start">
-                  <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FileText className="w-5 h-5 text-white" />
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#FDFBF7", border: "1px solid rgba(217,155,131,0.3)" }}>
+                    <FileText className="w-5 h-5" style={{ color: "#D99B83" }} />
                   </div>
-                  <div className="bg-gray-100 rounded-2xl px-4 py-3 max-w-[80%]">
-                    <p className="text-sm text-gray-900">
-                      {streamingContent || <Loader2 className="w-5 h-5 animate-spin text-gray-500" />}
+                  <div className="rounded-2xl px-4 py-3 max-w-[80%]" style={{ backgroundColor: "#FDFBF7", border: "1px solid rgba(217,155,131,0.3)" }}>
+                    <p className="text-sm" style={{ color: "#2D2D2D" }}>
+                      {streamingContent || <Loader2 className="w-5 h-5 animate-spin" style={{ color: "#D99B83" }} />}
                     </p>
                   </div>
                 </div>
@@ -532,22 +553,22 @@ export default function ChatInterface() {
         </div>
       </ScrollArea>
 
-      {/* Input Area */}
-      <div className="px-6 pb-6 bg-white">
+      {/* Input Area - Journal Style */}
+      <div className="px-6 pb-6 bg-card-cream">
         {attachedFiles.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-3">
             {attachedFiles.map((file) => (
               <div
                 key={file.id}
-                className="flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2 text-sm shadow-sm border border-gray-200"
+                className="flex items-center gap-2 bg-bg-sidebar rounded-full px-4 py-2 text-sm shadow-sm border border-text-ink/10"
               >
                 {getFileIcon(file.type)}
-                <span className="text-gray-700 max-w-[200px] truncate">
+                <span className="text-ink max-w-[200px] truncate">
                   {file.name}
                 </span>
                 <button
                   onClick={() => removeFile(file.id)}
-                  className="text-gray-500 hover:text-gray-600 transition-colors"
+                  className="text-ink/50 hover:text-terra transition-colors"
                   disabled={isProcessingFile}
                   aria-label={`Remove ${file.name}`}
                 >
@@ -562,20 +583,28 @@ export default function ChatInterface() {
         {isProcessingFile && (
           <div className="mb-3">
             <Progress value={uploadProgress} className="h-2" />
-            <p className="text-xs text-gray-500 mt-1 text-center">Processing file... {uploadProgress}%</p>
+            <p className="text-xs text-ink/50 mt-1 text-center">Processing file... {uploadProgress}%</p>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="relative">
-          <div className="relative flex items-center gap-2 shadow-lg rounded-full bg-white border border-gray-200 p-1.5">
+          {/* Journal Style Input */}
+          <div
+            className="relative flex items-center gap-2 rounded-xl p-3 transition-colors"
+            style={{
+              backgroundColor: "#FDFBF7",
+              border: "2px dashed #D99B83",
+              boxShadow: "4px 4px 0px 0px rgba(217,155,131,0.2)"
+            }}
+          >
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-3 text-gray-500 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all"
+              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition-all"
               disabled={isLoading || isProcessingFile}
               aria-label="Attach file"
             >
-              <Paperclip className="w-5 h-5" />
+              <Paperclip className="w-5 h-5 stroke-[1.5px]" />
             </button>
 
             <input
@@ -583,24 +612,25 @@ export default function ChatInterface() {
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask a question about your document..."
-              className="flex-1 bg-transparent border-0 outline-none text-base md:text-sm py-3 px-2 text-gray-900 placeholder:text-gray-500"
+              placeholder="Write your thoughts..."
+              className="flex-1 bg-transparent border-none outline-none focus:ring-0 text-base md:text-sm py-2 px-2 placeholder-gray-400"
+              style={{ color: "#2D2D2D" }}
               disabled={isLoading || isProcessingFile}
             />
 
-            <Button
+            <button
               type="submit"
-              size="icon"
               disabled={isLoading || isProcessingFile || (!input.trim() && attachedFiles.length === 0)}
-              className="h-11 w-11 rounded-full bg-gray-900 hover:bg-gray-800 transition-all"
+              className="p-2 rounded-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100"
+              style={{ color: "#D99B83" }}
               aria-label="Send message"
             >
               {isLoading || isProcessingFile ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
-                <Send className="w-5 h-5" />
+                <Send className="w-5 h-5 stroke-[1.5px]" />
               )}
-            </Button>
+            </button>
           </div>
 
           <input
@@ -614,8 +644,8 @@ export default function ChatInterface() {
           />
         </form>
 
-        <p className="text-xs text-gray-500 mt-3 text-center">
-          Press Enter to send, Shift + Enter for new line · Drag & drop files anywhere
+        <p className="text-xs text-ink/40 mt-3 text-center font-light">
+          Press Enter to send · Drag & drop files anywhere
         </p>
       </div>
     </div>

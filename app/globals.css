@@ -1,26 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: oklch(100% 0 0);
-  --color-foreground: oklch(10% 0.01 240);
-  --color-card: oklch(100% 0 0);
-  --color-card-foreground: oklch(10% 0.01 240);
-  --color-popover: oklch(100% 0 0);
-  --color-popover-foreground: oklch(10% 0.01 240);
-  --color-primary: oklch(10% 0.01 240);
-  --color-primary-foreground: oklch(98% 0 0);
-  --color-secondary: oklch(96% 0.01 240);
-  --color-secondary-foreground: oklch(10% 0.01 240);
-  --color-muted: oklch(96% 0.01 240);
-  --color-muted-foreground: oklch(46% 0.01 240);
-  --color-accent: oklch(96% 0.01 240);
-  --color-accent-foreground: oklch(10% 0.01 240);
-  --color-destructive: oklch(60% 0.2 0);
-  --color-destructive-foreground: oklch(98% 0 0);
-  --color-border: oklch(90% 0.01 240);
-  --color-input: oklch(90% 0.01 240);
-  --color-ring: oklch(10% 0.01 240);
+  /* Cozy Academia Color Palette */
+  --color-background: #E6E8E3;
+  --color-foreground: #2D2D2D;
+  --color-card: #FDFBF7;
+  --color-card-foreground: #2D2D2D;
+  --color-popover: #FDFBF7;
+  --color-popover-foreground: #2D2D2D;
+  --color-primary: #D99B83;
+  --color-primary-foreground: #2D2D2D;
+  --color-secondary: #F7F4EF;
+  --color-secondary-foreground: #2D2D2D;
+  --color-muted: #F7F4EF;
+  --color-muted-foreground: #6B6B6B;
+  --color-accent: #D99B83;
+  --color-accent-foreground: #2D2D2D;
+  --color-destructive: #D99B83;
+  --color-destructive-foreground: #2D2D2D;
+  --color-border: #D4D8D0;
+  --color-input: #D4D8D0;
+  --color-ring: #D99B83;
   --radius-lg: 0.5rem;
   --radius-md: calc(var(--radius-lg) - 2px);
   --radius-sm: calc(var(--radius-lg) - 4px);
+}
+
+/* Global styles */
+body {
+  background-color: #E6E8E3 !important; /* 鼠尾草灰绿 */
+  color: #2D2D2D;
 }
